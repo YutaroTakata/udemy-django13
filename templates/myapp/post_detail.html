@@ -1,0 +1,29 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<main class="container">
+  <div class="col-md-9">
+    <div class="card">
+      <img
+        src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ object.title }}</h5>
+        <p class="card-text">
+          {{ object.content | safe | linebreaksbr | urlize }}
+        </p>
+
+        <a href="{% url 'myapp:like' object.id %}" class="btn" style="background-color: #ff6699; color: white;">お気に入りに入れる</a>
+        <hr>
+        <a href="javascript:void(0)" onclick="window.history.back();" class="btn btn-outline-dark">戻る</a>
+        {% if object.author == request.user %}
+        <a href="{% url 'myapp:post_update' object.id %}" class="btn btn-primary">更新</a>
+        <a href="{% url 'myapp:post_delete' object.id %}" class="btn btn-danger">削除</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

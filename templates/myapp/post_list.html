@@ -1,0 +1,40 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<main class="container">
+  <div class="row my-3">
+    <div class="col-md-9">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>内容</th>
+            <th>作成日時</th>
+            <th>更新日時</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in post_list %}
+          <tr>
+            <td scope="row"><a href="{% url 'myapp:post_detail' object.id %}">{{ object.title }}</a></th>
+            <td>{{ object.content }}</td>
+            <td>{{ object.created_at }}</td>
+            <td>{{ object.update_at }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+      {% include 'myapp/pagination.html' %}
+      <br>
+    </div>
+    <div class="col-md-3 mt-3">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-primary">カテゴリー</li>
+        {% for item in category %}
+        <li class="list-group-item list-group-item-action">{{ item.name }} <span class="badge bg-light text-dark">[{{ item.post_count }}]</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</main>
+{% endblock %}
